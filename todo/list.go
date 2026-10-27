@@ -1,11 +1,15 @@
 package todo
 
-import (
-	"sort"
-)
+import "sort"
 
 type List struct {
 	tasks map[string]Task
+}
+
+func NewList() *List {
+	return &List{
+		tasks: make(map[string]Task),
+	}
 }
 
 func (l *List) AddTask(task Task) error {
