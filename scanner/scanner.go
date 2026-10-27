@@ -11,6 +11,7 @@ import (
 
 type Scanner struct {
 	todoList *todo.List
+	Events   []Event
 }
 
 func (s *Scanner) Start() error {
@@ -24,12 +25,15 @@ func (s *Scanner) Start() error {
 		}
 
 		line := scanner.Text()
-		if err := s.process(line); err != nil {
+		err := s.process(line)
+		if err != nil {
 			if errors.Is(err, errNeedExit) {
 				printExit()
 				return nil
 			}
 		}
+
+		s.Events = append(s.Events, NewEvent(err, line))
 	}
 }
 
