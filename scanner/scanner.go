@@ -66,6 +66,10 @@ func (s *Scanner) process(line string) error {
 		return s.cmdDel(fields)
 	}
 
+	if cmd == "help" {
+		return s.cmdHelp(fields)
+	}
+
 	return nil
 }
 
@@ -126,6 +130,16 @@ func (s *Scanner) cmdDel(fields []string) error {
 	}
 
 	printDel(title)
+
+	return nil
+}
+
+func (s *Scanner) cmdHelp(fields []string) error {
+	if len(fields) != 1 {
+		return errWrongArgs
+	}
+
+	printHelp()
 
 	return nil
 }

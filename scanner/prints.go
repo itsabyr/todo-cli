@@ -53,3 +53,16 @@ func printDone(title string) {
 func printDel(title string) {
 	fmt.Printf("Задача %q удалена!\n", title)
 }
+
+func printHelp() {
+	fmt.Println("Доступные команды:")
+	fmt.Println()
+
+	fmt.Println("  help                      Показать доступные команды и их формат")
+	fmt.Println("  add {заголовок} {текст}   Добавить задачу")
+	fmt.Println("  list                      Вывести список всех задач")
+	fmt.Println("  done {заголовок}          Отметить задачу как выполненную")
+	fmt.Println("  del {заголовок}           Удалить задачу по заголовку")
+	fmt.Println("  events                    Вывести список всех событий")
+	fmt.Println("  exit                      Завершить работу программы")
+}
