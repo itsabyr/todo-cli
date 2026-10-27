@@ -37,6 +37,8 @@ func (s *Scanner) Start() error {
 				printExit()
 				return nil
 			}
+
+			printResult(err)
 		}
 
 		s.Events = append(s.Events, NewEvent(err, line))

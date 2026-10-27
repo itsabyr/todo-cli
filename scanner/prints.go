@@ -4,15 +4,18 @@ import (
 	"fmt"
 
 	"github.com/itsabyr/todo-cli/todo"
-	"github.com/k0kubun/pp"
 )
+
+func printResult(err error) {
+	fmt.Println(err)
+}
 
 func printPrompt() {
 	fmt.Print("Введите команду: ")
 }
 
 func printExit() {
-	fmt.Print("Завершение работы... До скорого!")
+	fmt.Println("Завершение работы... До скорого!")
 }
 
 func printAdd(title string) {
@@ -21,12 +24,12 @@ func printAdd(title string) {
 
 func printTasks(tasks []todo.Task) {
 	if len(tasks) == 0 {
-		pp.Println("Список задач пуст")
+		fmt.Println("Список задач пуст")
 		return
 	}
 
-	pp.Println("Список задач:")
-	pp.Println()
+	fmt.Println("Список задач:")
+	fmt.Println()
 
 	for i, task := range tasks {
 		status := "○"
@@ -34,15 +37,15 @@ func printTasks(tasks []todo.Task) {
 			status = "✓"
 		}
 
-		pp.Printf("%s [%d] %s\n", status, i+1, task.Title)
-		pp.Printf("   %s\n", task.Text)
-		pp.Printf("   Создана: %s\n", task.CreatedAt.Format("02.01.2006 15:04"))
+		fmt.Printf("%s [%d] %s\n", status, i+1, task.Title)
+		fmt.Printf("   %s\n", task.Text)
+		fmt.Printf("   Создана: %s\n", task.CreatedAt.Format("02.01.2006 15:04"))
 
 		if task.IsDone && task.DoneAt != nil {
-			pp.Printf("   Выполнена: %s\n", task.DoneAt.Format("02.01.2006 15:04"))
+			fmt.Printf("   Выполнена: %s\n", task.DoneAt.Format("02.01.2006 15:04"))
 		}
 
-		pp.Println()
+		fmt.Println()
 	}
 }
 
@@ -69,23 +72,23 @@ func printHelp() {
 
 func printEvents(events []Event) {
 	if len(events) == 0 {
-		pp.Println("Событий пока нет")
+		fmt.Println("Событий пока нет")
 		return
 	}
 
-	pp.Println("История событий:")
-	pp.Println()
+	fmt.Println("История событий:")
+	fmt.Println()
 
 	for i, event := range events {
-		pp.Printf("[%d] %s\n", i+1, event.CreatedAt.Format("02.01.2006 15:04:05"))
-		pp.Printf("    Команда: %s\n", event.UserInput)
+		fmt.Printf("[%d] %s\n", i+1, event.CreatedAt.Format("02.01.2006 15:04:05"))
+		fmt.Printf("    Команда: %s\n", event.UserInput)
 
 		if event.Description != nil {
-			pp.Printf("    Ошибка: %s\n", event.Description)
+			fmt.Printf("    Ошибка: %s\n", event.Description)
 		} else {
-			pp.Println("    Статус: успешно")
+			fmt.Println("    Статус: успешно")
 		}
 
-		pp.Println()
+		fmt.Println()
 	}
 }
