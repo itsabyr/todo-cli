@@ -46,5 +46,24 @@ func (s *Scanner) process(line string) error {
 		return errNeedExit
 	}
 
+	if cmd == "add" {
+		return s.cmdAdd(fields)
+	}
+
+	return nil
+}
+
+func (s *Scanner) cmdAdd(fields []string) error {
+	if len(fields) < 3 {
+		return errWrongArgs
+	}
+
+	title := fields[1]
+	text := strings.Join(fields[2:], " ")
+
+	task := todo.NewTask(title, text)
+
+	s.todoList.AddTask(task)
+
 	return nil
 }

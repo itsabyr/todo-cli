@@ -5,4 +5,5 @@ import "errors"
 var (
 	errEmptyInput = errors.New("empty input")
 	errNeedExit   = errors.New("exit requested")
+	errWrongArgs  = errors.New("wrong number of arguments")
 )
