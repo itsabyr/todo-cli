@@ -14,6 +14,12 @@ type Scanner struct {
 	Events   []Event
 }
 
+func NewScanner(todoList *todo.List) *Scanner {
+	return &Scanner{
+		todoList: todoList,
+	}
+}
+
 func (s *Scanner) Start() error {
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -74,7 +80,7 @@ func (s *Scanner) process(line string) error {
 		return s.cmdEvents(fields)
 	}
 
-	return nil
+	return errUnknownCmd
 }
 
 func (s *Scanner) cmdAdd(fields []string) error {
