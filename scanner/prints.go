@@ -49,3 +49,7 @@ func printTasks(tasks []todo.Task) {
 func printDone(title string) {
 	fmt.Printf("Задача %q помечана как выполненная!\n", title)
 }
+
+func printDel(title string) {
+	fmt.Printf("Задача %q удалена!\n", title)
+}

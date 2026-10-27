@@ -58,6 +58,10 @@ func (s *Scanner) process(line string) error {
 		return s.cmdDone(fields)
 	}
 
+	if cmd == "del" {
+		return s.cmdDel(fields)
+	}
+
 	return nil
 }
 
@@ -102,6 +106,22 @@ func (s *Scanner) cmdDone(fields []string) error {
 	}
 
 	printDone(title)
+
+	return nil
+}
+
+func (s *Scanner) cmdDel(fields []string) error {
+	if len(fields) != 2 {
+		return errWrongArgs
+	}
+
+	title := fields[1]
+
+	if err := s.todoList.DeleteTask(title); err != nil {
+		return err
+	}
+
+	printDel(title)
 
 	return nil
 }
