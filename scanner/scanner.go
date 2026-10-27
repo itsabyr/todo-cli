@@ -50,6 +50,10 @@ func (s *Scanner) process(line string) error {
 		return s.cmdAdd(fields)
 	}
 
+	if cmd == "list" {
+		return s.cmdList(fields)
+	}
+
 	return nil
 }
 
@@ -64,6 +68,20 @@ func (s *Scanner) cmdAdd(fields []string) error {
 	task := todo.NewTask(title, text)
 
 	s.todoList.AddTask(task)
+
+	printAdd(title)
+
+	return nil
+}
+
+func (s *Scanner) cmdList(fields []string) error {
+	if len(fields) != 1 {
+		return errWrongArgs
+	}
+
+	tasks := s.todoList.ListTasks()
+
+	printTasks(tasks)
 
 	return nil
 }
