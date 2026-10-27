@@ -1,7 +1,6 @@
 package todo
 
 import (
-	"errors"
 	"sort"
 )
 
@@ -9,12 +8,9 @@ type List struct {
 	tasks map[string]Task
 }
 
-var ErrTaskExists = errors.New("task with this title already exists")
-var ErrTaskNotFound error
-
 func (l *List) AddTask(task Task) error {
 	if _, exists := l.tasks[task.Title]; exists {
-		return ErrTaskExists
+		return errTaskExists
 	}
 
 	l.tasks[task.Title] = task
@@ -38,8 +34,16 @@ func (l *List) ListTasks() []Task {
 	return tasks
 }
 
-func (l *List) DoneTask(title string) {
+func (l *List) DoneTask(title string) error {
+	task, ok := l.tasks[title]
+	if !ok {
+		return errTaskNotFound
+	}
 
+	task.Done()
+	l.tasks[title] = task
+
+	return nil
 }
 
 func (l *List) DeleteTask(title string) {

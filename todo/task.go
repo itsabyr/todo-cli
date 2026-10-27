@@ -19,3 +19,9 @@ func NewTask(title, text string) Task {
 		DoneAt:    nil,
 	}
 }
+
+func (t *Task) Done() {
+	now := time.Now()
+	t.IsDone = true
+	t.DoneAt = &now
+}
