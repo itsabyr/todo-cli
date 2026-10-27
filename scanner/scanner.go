@@ -54,6 +54,10 @@ func (s *Scanner) process(line string) error {
 		return s.cmdList(fields)
 	}
 
+	if cmd == "done" {
+		return s.cmdDone(fields)
+	}
+
 	return nil
 }
 
@@ -82,6 +86,22 @@ func (s *Scanner) cmdList(fields []string) error {
 	tasks := s.todoList.ListTasks()
 
 	printTasks(tasks)
+
+	return nil
+}
+
+func (s *Scanner) cmdDone(fields []string) error {
+	if len(fields) != 2 {
+		return errWrongArgs
+	}
+
+	title := fields[1]
+
+	if err := s.todoList.DoneTask(title); err != nil {
+		return err
+	}
+
+	printDone(title)
 
 	return nil
 }

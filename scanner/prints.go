@@ -16,7 +16,7 @@ func printExit() {
 }
 
 func printAdd(title string) {
-	fmt.Printf("Задача %q успешно добавлена\n", title)
+	fmt.Printf("Задача %q успешно добавлена!\n", title)
 }
 
 func printTasks(tasks []todo.Task) {
@@ -44,4 +44,8 @@ func printTasks(tasks []todo.Task) {
 
 		pp.Println()
 	}
+}
+
+func printDone(title string) {
+	fmt.Printf("Задача %q помечана как выполненная!\n", title)
 }
