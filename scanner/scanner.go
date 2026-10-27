@@ -70,6 +70,10 @@ func (s *Scanner) process(line string) error {
 		return s.cmdHelp(fields)
 	}
 
+	if cmd == "events" {
+		return s.cmdEvents(fields)
+	}
+
 	return nil
 }
 
@@ -140,6 +144,16 @@ func (s *Scanner) cmdHelp(fields []string) error {
 	}
 
 	printHelp()
+
+	return nil
+}
+
+func (s *Scanner) cmdEvents(fields []string) error {
+	if len(fields) != 1 {
+		return errWrongArgs
+	}
+
+	printEvents(s.Events)
 
 	return nil
 }

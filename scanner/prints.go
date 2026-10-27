@@ -66,3 +66,26 @@ func printHelp() {
 	fmt.Println("  events                    Вывести список всех событий")
 	fmt.Println("  exit                      Завершить работу программы")
 }
+
+func printEvents(events []Event) {
+	if len(events) == 0 {
+		pp.Println("Событий пока нет")
+		return
+	}
+
+	pp.Println("История событий:")
+	pp.Println()
+
+	for i, event := range events {
+		pp.Printf("[%d] %s\n", i+1, event.CreatedAt.Format("02.01.2006 15:04:05"))
+		pp.Printf("    Команда: %s\n", event.UserInput)
+
+		if event.Description != nil {
+			pp.Printf("    Ошибка: %s\n", event.Description)
+		} else {
+			pp.Println("    Статус: успешно")
+		}
+
+		pp.Println()
+	}
+}
