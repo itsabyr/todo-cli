@@ -14,6 +14,7 @@ func (l *List) AddTask(task Task) error {
 	}
 
 	l.tasks[task.Title] = task
+
 	return nil
 }
 
@@ -28,6 +29,7 @@ func (l *List) ListTasks() []Task {
 		if tasks[i].CreatedAt.Equal(tasks[j].CreatedAt) {
 			return tasks[i].Title < tasks[j].Title
 		}
+
 		return tasks[i].CreatedAt.Before(tasks[j].CreatedAt)
 	})
 
@@ -41,11 +43,18 @@ func (l *List) DoneTask(title string) error {
 	}
 
 	task.Done()
+
 	l.tasks[title] = task
 
 	return nil
 }
 
-func (l *List) DeleteTask(title string) {
+func (l *List) DeleteTask(title string) error {
+	if _, ok := l.tasks[title]; !ok {
+		return errTaskNotFound
+	}
 
+	delete(l.tasks, title)
+
+	return nil
 }
